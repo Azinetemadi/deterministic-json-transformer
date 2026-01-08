@@ -1,0 +1,22 @@
+{
+  "type": "object",
+  "required": ["id", "name"],
+  "properties": {
+    "id": {"type": "string"},
+    "name": {"type": "string"},
+    "tags": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "source": {"type": "string"},
+        "priority": {"type": "integer"}
+      },
+      "additionalProperties": false
+    },
+    "secret": {"type": "string"}
+  },
+  "additionalProperties": true
+}

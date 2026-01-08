@@ -1,0 +1,4 @@
+{
+  "include": ["/id", "/name", "/tags", "/metadata/source"],
+  "exclude": ["/secret"]
+}
