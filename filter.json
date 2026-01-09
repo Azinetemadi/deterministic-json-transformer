@@ -1,4 +1,22 @@
 {
-  "include": ["/id", "/name", "/tags", "/metadata/source"],
-  "exclude": ["/secret"]
+  "include": [
+    "/id",
+    "/name",
+    "/email",
+    "/age",
+    "/role",
+    "/tags",
+    "/metadata/source",
+    "/metadata/priority",
+    "/settings"
+  ],
+  "exclude": [
+    "/secret",
+    "/internal",
+    "/metadata/flags"
+  ],
+  "rename": {
+    "/metadata/source": "/source"
+  },
+  "compactArrays": true
 }
