@@ -1,22 +1,102 @@
 {
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "User Record",
+  "description": "A comprehensive user record schema demonstrating various validation features",
   "type": "object",
-  "required": ["id", "name"],
+  "required": ["id", "name", "email"],
   "properties": {
-    "id": {"type": "string"},
-    "name": {"type": "string"},
+    "id": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9-]+$",
+      "minLength": 1,
+      "maxLength": 64,
+      "description": "Unique identifier"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100
+    },
+    "email": {
+      "type": "string",
+      "format": "email"
+    },
+    "age": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 150
+    },
+    "role": {
+      "type": "string",
+      "enum": ["admin", "user", "guest"],
+      "default": "user"
+    },
+    "status": {
+      "type": "string",
+      "const": "active"
+    },
     "tags": {
       "type": "array",
-      "items": {"type": "string"}
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 0,
+      "maxItems": 10,
+      "uniqueItems": true,
+      "default": []
     },
     "metadata": {
       "type": "object",
       "properties": {
-        "source": {"type": "string"},
-        "priority": {"type": "integer"}
+        "source": {
+          "type": "string",
+          "enum": ["web", "mobile", "api"]
+        },
+        "priority": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10,
+          "default": 5
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "flags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
       },
       "additionalProperties": false
     },
-    "secret": {"type": "string"}
+    "settings": {
+      "type": "object",
+      "additionalProperties": {
+        "type": ["string", "number", "boolean"]
+      }
+    },
+    "secret": {
+      "type": "string",
+      "description": "This field should be filtered out"
+    },
+    "internal": {
+      "type": "object",
+      "description": "Internal data that should be excluded"
+    }
   },
-  "additionalProperties": true
+  "additionalProperties": true,
+  "definitions": {
+    "address": {
+      "type": "object",
+      "required": ["street", "city"],
+      "properties": {
+        "street": {"type": "string"},
+        "city": {"type": "string"},
+        "zipCode": {"type": "string", "pattern": "^[0-9]{5}(-[0-9]{4})?$"}
+      }
+    }
+  }
 }
